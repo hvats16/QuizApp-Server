@@ -12,11 +12,12 @@ export async function getQuestions(req, res) {
 	}
 }
 
-/** insert all questions */
+/** insert all questinos */
 export async function insertQuestions(req, res) {
 	try {
-		await Questions.insertMany({ questions, answers });
-		res.json("Items Added Successfully");
+		Questions.insertMany({ questions, answers }, function (err, data) {
+			res.json({ msg: "Data Saved Successfully...!" });
+		});
 	} catch (error) {
 		res.json({ error });
 	}
@@ -45,6 +46,7 @@ export async function getResult(req, res) {
 /** post all result */
 export async function storeResult(req, res) {
 	try {
+		console.log(req.body);
 		const { username, result, attempts, points, achived } = req.body;
 		if (!username && !result) throw new Error("Data Not Provided...!");
 
@@ -55,7 +57,7 @@ export async function storeResult(req, res) {
 			}
 		);
 	} catch (error) {
-		res.json({ error });
+		res.json("Some Error");
 	}
 }
 
